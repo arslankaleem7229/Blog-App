@@ -1,6 +1,6 @@
 @extends('layout')
 @section('dashboard-content')
-    <h1>Create Category Form</h1>
+    <h1>Update Category Form</h1>
     @if (Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="gone">
 
@@ -21,14 +21,14 @@
     @endif
 
 
-    <form action="{{ URL::to('post-category-form') }}" method="post">
+    <form action="{{ URL::to('update-category') }}/{{ $category->id }}" method="post">
         @csrf
         <div class="form-group">
             <label for="exampleInputEmail1">Category Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Category Name" name="categoryName">
+            <input type="text" class="form-control" value="{{ $category->name }}" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="Category Name" name="categoryName">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 
 @stop

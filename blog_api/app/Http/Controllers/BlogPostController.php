@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
@@ -24,7 +25,8 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('Blog.create', compact('categories'));
     }
 
     /**
@@ -35,7 +37,19 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $blogPost = new BlogPost();
+        $blogPost->title = $request->input(key:'blogtitle');
+        $blogPost->details = $request->input(key:'blogdescription');
+        $blogPost->category_id = $request->input(key:'category');
+        $blogPost->user_id = 0;
+        $blogPost->featured_image_url = "null";
+        if ($blogPost->save()) {
+            return redirect()->back()->with('success', 'Blog added Successfully!');
+        } else {
+            return redirect()->back()->with('failure', 'Problem occured while adding Blog!');
+
+        }
+
     }
 
     /**

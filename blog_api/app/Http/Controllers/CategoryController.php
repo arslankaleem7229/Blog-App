@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -35,7 +37,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->input(key:'categoryName');
+        if ($category->save()) {
+            return redirect()->back()->with('success', 'saved Successfully!');
+        } else {
+            return redirect()->back()->with('failed', 'Could Not Save');
+        }
     }
 
     /**
@@ -55,9 +63,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -67,9 +76,16 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->input(key:'categoryName');
+        if ($category->save()) {
+            return redirect()->back()->with('success', 'Updated Successfully!');
+        } else {
+            return redirect()->back()->with('failed', 'Update Failed!');
+        }
+
     }
 
     /**
@@ -78,8 +94,21 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+
+        $category = Category::destroy($id);
+        if ($category) {
+            return redirect()->back()->with('deleted', 'Deleted Successfully!');
+        } else {
+            return redirect()->back()->with('delete-failed', 'Unable to delete!');
+        }
+
+    }
+    public function truncate()
+    {
+        DB::table('categories')->truncate();
+        return redirect()->back();
+
     }
 }

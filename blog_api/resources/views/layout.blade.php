@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Blogging App</title>
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{{ URL::to('css/styles.css') }}" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous">
@@ -17,10 +17,11 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
         </button>
+        <a class="navbar-brand" href="{{ URL::to('dashboard') }}">Blogging App</a>
+
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
@@ -53,73 +54,77 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ URL::to('dashboard') }}">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            Dashboard
+                            </div> Dashboard
                         </a>
-
+                        {{-- Category Menu --}}
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            Category
-                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </div> Category <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i>
                             </div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="{{ URL::to('create-category') }}"
-                                    data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Create Category
-                                    <div class="sb-sidenav-collapse-arrow">
-                                        <i class="fas fa-angle-down"></i>
-                                    </div>
+                                <a class="nav-link collapsed" href=" {{ URL::to('create-category') }} "> Create
+                                    Category
                                 </a>
-
+                                <a class="nav-link collapsed" href=" {{ URL::to('all-categories') }} "> All Categories
+                                </a>
+                            </nav>
+                        </div>
+                        {{-- Blog Post Menu --}}
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlogPages"
+                            aria-expanded="false" aria-controls="collapseBlogPages">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-blog"></i>
+                            </div> Blog Post <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse" id="collapseBlogPages" aria-labelledby="headingTwo"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href=" {{ URL::to('get-blog-post-form') }} "> Create
+                                    Blog post
+                                </a>
+                                <a class="nav-link collapsed" href=" {{ URL::to('all-categories') }} "> All Categories
+                                </a>
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Addons</div>
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-chart-area"></i>
-                            </div>
-                            Charts
+                            </div> Charts
                         </a>
                         <a class="nav-link" href="tables.html">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-table"></i>
-                            </div>
-                            Tables
+                            </div> Tables
                         </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <div class="small">Logged in as:</div> Arslan Kaleem
                 </div>
             </nav>
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid">
-                    @yield('dashboard-content')
-                </div>
+                <div class="container-fluid"> @yield('dashboard-content') </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">
-                            Copyright &copy; Your Website 2020
-                        </div>
+                        <div class="text-muted"> Copyright &copy; Your Website 2020 </div>
                         <div>
-                            <a href="#">Privacy Policy</a> &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
                         </div>
                     </div>
                 </div>
