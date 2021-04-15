@@ -23,3 +23,7 @@ Route::get('delete-category/{id}', 'App\Http\Controllers\CategoryController@dest
 Route::get('delete-all-category', 'App\Http\Controllers\CategoryController@truncate');
 Route::get('get-blog-post-form', 'App\Http\Controllers\BlogPostController@create');
 Route::post('store-blog-post', 'App\Http\Controllers\BlogPostController@store');
+Route::get('get-blog-posts', 'App\Http\Controllers\BlogPostController@index');
+Route::get('blog-post-details/{id}', 'App\Http\Controllers\BlogPostController@details');
+Route::get('edit-blogpost/{id}', 'App\Http\Controllers\BlogPostController@edit');
+Route::get('update-blog-post/{id}', 'App\Http\Controllers\BlogPostController@update');

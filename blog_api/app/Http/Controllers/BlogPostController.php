@@ -15,7 +15,15 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        //
+        $blogPosts = BlogPost::all();
+        return view('blog.index', compact('blogPosts'));
+
+    }
+    public function details($id)
+    {
+
+        $blogPost = BlogPost::find($id);
+        return view('Blog.blogdetails', compact('blogPost'));
     }
 
     /**
@@ -83,9 +91,13 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function edit(BlogPost $blogPost)
+    public function edit($id)
     {
-        //
+        $blogPost = BlogPost::find($id);
+        $categories = Category::all();
+
+        return view('Blog.editBlogPost', compact('blogPost', 'categories'));
+
     }
 
     /**
@@ -95,9 +107,32 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogPost $blogPost)
+    public function update(Request $request, $id)
     {
-        //
+        $blogPost = BlogPost::find($id);
+        $blogPost->title = $request->input(key:'blogtitle');
+        $blogPost->details = $request->input(key:'blogdescription');
+        $blogPost->category_id = $request->input(key:'category');
+        $blogPost->user_id = 0;
+        $blogPost->featured_image_url = 'null';
+
+        if ($blogPost->save()) {
+            $photo = $request->file(key:'featuredphoto');
+            if ($photo != null) {
+                $ext = $photo->getClientOriginalExtension();
+                $filename = rand(10000, 50000) . '.' . $ext;
+                if ($photo->move(public_path(), $filename)) {
+                    $blogPost = BlogPost::find($blogPost->id);
+                    $blogPost->featured_image_url = url(path:'/') . '/' . $filename;
+                    $blogPost->save();
+                }
+            }
+
+            return redirect()->back()->with('success', 'Updated Successfully!');
+        } else {
+            return redirect()->back()->with('failed', 'Update Failed!');
+        }
+
     }
 
     /**

@@ -94,7 +94,7 @@
                                 <a class="nav-link collapsed" href=" {{ URL::to('get-blog-post-form') }} "> Create
                                     Blog post
                                 </a>
-                                <a class="nav-link collapsed" href=" {{ URL::to('all-categories') }} "> All Categories
+                                <a class="nav-link collapsed" href=" {{ URL::to('get-blog-posts') }} "> All Blogs
                                 </a>
                             </nav>
                         </div>
