@@ -25,5 +25,7 @@ Route::get('get-blog-post-form', 'App\Http\Controllers\BlogPostController@create
 Route::post('store-blog-post', 'App\Http\Controllers\BlogPostController@store');
 Route::get('get-blog-posts', 'App\Http\Controllers\BlogPostController@index');
 Route::get('blog-post-details/{id}', 'App\Http\Controllers\BlogPostController@details');
-Route::get('edit-blogpost/{id}', 'App\Http\Controllers\BlogPostController@edit');
-Route::get('update-blog-post/{id}', 'App\Http\Controllers\BlogPostController@update');
+Route::get('edit-blog-post/{id}', 'App\Http\Controllers\BlogPostController@edit');
+Route::post('update-blog-post/{id}', 'App\Http\Controllers\BlogPostController@update');
+Route::get('delete-blog-post/{id}', 'App\Http\Controllers\BlogPostController@destroy');
+Route::get('delete-all-blog-post', 'App\Http\Controllers\BlogPostController@truncate');

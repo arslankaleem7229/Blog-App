@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogPostController extends Controller
 {
@@ -95,7 +96,6 @@ class BlogPostController extends Controller
     {
         $blogPost = BlogPost::find($id);
         $categories = Category::all();
-
         return view('Blog.editBlogPost', compact('blogPost', 'categories'));
 
     }
@@ -128,9 +128,10 @@ class BlogPostController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'Updated Successfully!');
+            return redirect()->back()->with('success', 'Blog added Successfully!');
         } else {
-            return redirect()->back()->with('failed', 'Update Failed!');
+            return redirect()->back()->with('failure', 'Problem occured while adding Blog!');
+
         }
 
     }
@@ -141,8 +142,20 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BlogPost $blogPost)
+    public function destroy($id)
     {
-        //
+        $blogPost = BlogPost::destroy($id);
+        if ($blogPost) {
+            return redirect()->back()->with('deleted', 'Deleted Successfully!');
+        } else {
+            return redirect()->back()->with('delete-failed', 'Unable to delete!');
+        }
+
+    }
+    public function truncate()
+    {
+        DB::table('blog_posts')->truncate();
+        return redirect()->back();
+
     }
 }

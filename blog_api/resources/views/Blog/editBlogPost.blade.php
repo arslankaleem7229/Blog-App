@@ -1,6 +1,6 @@
 @extends('layout')
 @section('dashboard-content')
-    <h1>Blog Post</h1>
+    <h1>Update Blog Post</h1>
     @if (Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="gone">
 
@@ -36,7 +36,8 @@
             <label for="category">Blog Category</label>
             <select class="form-control" name="category">
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->id }}). {{ $category->name }}</option>
+                    <option value="{{ $category->id }}" @if ($category->id == $blogPost->category_id) selected @endif>
+                        {{ $category->id }}). {{ $category->name }}</option>
                 @endforeach
             </select>
         </div>

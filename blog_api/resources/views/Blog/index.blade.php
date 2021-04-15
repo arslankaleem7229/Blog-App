@@ -41,7 +41,8 @@
                         <tr>
                             <th></th>
                             <th></th>
-                            <th><a style="color: red;" href="{{-- URL::to('delete-all-blogpost') --}}#" onclick="allDelete()">Delete all
+                            <th><a style="color: red;" href="{{ URL::to('delete-all-blog-post') }}"
+                                    onclick="allDelete()">Delete all
                                     blogPosts</a>
                             </th>
                         </tr>
@@ -54,11 +55,11 @@
                                 <td> <a href="{{ URL::to('blog-post-details') }}/{{ $blogpost->id }}">{{ $blogpost->title }}
                                     </a></td>
                                 <td>
-                                    <a href="{{ URL::to('edit-blogpost') }}/{{ $blogpost->id }} #"
+                                    <a href="{{ URL::to('edit-blog-post') }}/{{ $blogpost->id }}"
                                         class="btn btn-outline-primary btn-sm">Edit</a>
                                     |
-                                    <a href="{{-- {{ URL::to('delete-blogpost') }}/{{ $blogpost->id }} --}}#" class="btn btn-outline-danger btn-sm"
-                                        onclick="checkDelete()">Delete</a>
+                                    <a href=" {{ URL::to('delete-blog-post') }}/{{ $blogpost->id }}"
+                                        class="btn btn-outline-danger btn-sm" onclick="checkDelete()">Delete</a>
                                 </td>
                             </tr>
 
