@@ -42,8 +42,22 @@ class BlogPostController extends Controller
         $blogPost->details = $request->input(key:'blogdescription');
         $blogPost->category_id = $request->input(key:'category');
         $blogPost->user_id = 0;
-        $blogPost->featured_image_url = "null";
+        $blogPost->featured_image_url = 'null';
+
         if ($blogPost->save()) {
+            $photo = $request->file(key:'featuredphoto');
+            if ($photo != null) {
+                $ext = $photo->getClientOriginalExtension();
+                $filename = rand(10000, 50000) . '.' . $ext;
+                if ($photo->move(public_path(), $filename)) {
+                    $blogPost = BlogPost::find($blogPost->id);
+                    $blogPost->featured_image_url = url(path:'/') . '/' . $filename;
+                    $blogPost->save();
+                }
+            } else {
+                $blogPost->featured_image_url = "null";
+            }
+
             return redirect()->back()->with('success', 'Blog added Successfully!');
         } else {
             return redirect()->back()->with('failure', 'Problem occured while adding Blog!');

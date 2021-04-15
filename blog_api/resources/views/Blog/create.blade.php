@@ -20,26 +20,52 @@
 
     @endif
 
-
-    <form action="{{ URL::to('store-blog-post') }}" method="post">
+    <form action="{{ URL::to('store-blog-post') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="exampleInputEmail1">Blog Title</label>
+            <label for="blogtitle">Blog Title</label>
             <input type="text" class="form-control" id="blogtitle" placeholder="Enter Blog title" name="blogtitle">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Blog Description</label>
-            <textarea class="form-control" name="blogdescription" id="blogdescription"></textarea>
+            <label for="blogdescription">Blog Description</label>
+            <textarea class="form-control" id="editor1" name="blogdescription" id="blogdescription"></textarea>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Blog Category</label>
+            <label for="category">Blog Category</label>
             <select class="form-control" name="category">
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->id }}). {{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>
+            <label for="featuredphoto">Select Featured photo</label>
+            <input style="border: none;" type="file" name="featuredphoto" id="" class="form-control"
+                onchange="loadphoto(event)">
+            <br>
+        </div>
+        <div id="imageViewer" style="visibility: hidden;width: 0px;height: 0px;">
+            <img id="imagePreview" height="100" width="100">
+        </div>
+        <button type=" submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+
     </form>
+
+    <script>
+        function loadphoto(event) {
+            document.getElementById('imageViewer').setAttribute("style", "width:100px");
+            document.getElementById('imageViewer').style.visibility = "visible";
+            document.getElementById('imageViewer').setAttribute("style", "height:100px");
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+
+        }
+
+    </script>
 
 @stop
