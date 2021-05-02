@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('get-all-categories', 'App\Http\Controllers\Api\CategoryController@index');
 Route::get('get-all-blog-posts', 'App\Http\Controllers\Api\BlogPostController@index');
+Route::get('get-specific-category/{id}','App\Http\Controllers\Api\CategoryController@show');
